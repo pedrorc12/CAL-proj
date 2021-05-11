@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Pedro/CLionProjects/CAL-project/Graph.h
+vector
+-
+queue
+-
+limits
+-
+iostream
+-
+
+C:/Users/Pedro/CLionProjects/CAL-project/main.cpp
+iostream
+-
+cstdlib
+-
+fstream
+-
+String
+-
+Graph.h
+C:/Users/Pedro/CLionProjects/CAL-project/Graph.h
+

@@ -134,8 +134,6 @@ public:
 	Vertex<T> *addVertex(const T &in);
 	Edge<T> *addEdge(const T &sourc, const T &dest, double capacity, double cost, double flow=0);
 	double getFlow(const T &sourc, const T &dest) const ;
-	void fordFulkerson(T source, T target);
-	double minCostFlow(T source, T target, double flow);
 };
 
 template <class T>

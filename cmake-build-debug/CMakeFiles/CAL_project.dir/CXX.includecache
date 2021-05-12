@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Pedro/CLionProjects/CAL-project/Graph.h
+/home/victor/Documentos/CAL/Projeto/Graph.h
 vector
 -
 queue
@@ -16,7 +16,7 @@ limits
 iostream
 -
 
-C:/Users/Pedro/CLionProjects/CAL-project/main.cpp
+/home/victor/Documentos/CAL/Projeto/main.cpp
 iostream
 -
 cstdlib
@@ -26,5 +26,5 @@ fstream
 String
 -
 Graph.h
-C:/Users/Pedro/CLionProjects/CAL-project/Graph.h
+/home/victor/Documentos/CAL/Projeto/Graph.h
 

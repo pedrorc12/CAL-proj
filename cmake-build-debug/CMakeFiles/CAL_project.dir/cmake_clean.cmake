@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CAL_project.exe"
-  "CAL_project.exe.manifest"
+  "CAL_project"
   "CAL_project.pdb"
-  "CMakeFiles/CAL_project.dir/main.cpp.obj"
-  "libCAL_project.dll.a"
+  "CMakeFiles/CAL_project.dir/main.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

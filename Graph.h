@@ -184,4 +184,9 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 	return vertexSet;
 }
 
+template <class T>
+void Graph<T>::dijkstraShortestPath(Vertex<T> *s) {
+
+}
+
 #endif

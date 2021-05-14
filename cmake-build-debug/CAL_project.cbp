@@ -372,6 +372,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/graphReader.h">
+			<Option target="CAL_project"/>
+		</Unit>
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/lib/GraphViewerCpp/src/edge.cpp">
 			<Option target="graphviewer"/>
 		</Unit>

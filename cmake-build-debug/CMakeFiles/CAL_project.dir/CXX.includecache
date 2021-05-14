@@ -50,6 +50,16 @@ MutablePriorityQueue.h
 vector
 -
 
+/home/victor/Documentos/CAL/Projeto/graphReader.h
+fstream
+-
+string
+-
+Graph.h
+/home/victor/Documentos/CAL/Projeto/Graph.h
+graphviewer.h
+/home/victor/Documentos/CAL/Projeto/graphviewer.h
+
 /home/victor/Documentos/CAL/Projeto/main.cpp
 iostream
 -
@@ -63,4 +73,6 @@ Graph.h
 /home/victor/Documentos/CAL/Projeto/Graph.h
 graphviewer.h
 /home/victor/Documentos/CAL/Projeto/graphviewer.h
+graphReader.h
+/home/victor/Documentos/CAL/Projeto/graphReader.h
 

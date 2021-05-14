@@ -6,5 +6,6 @@ CMakeFiles/CAL_project.dir/main.cpp.o: ../lib/GraphViewerCpp/include/graphviewer
 CMakeFiles/CAL_project.dir/main.cpp.o: ../lib/GraphViewerCpp/include/lines.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../Graph.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../MutablePriorityQueue.h
+CMakeFiles/CAL_project.dir/main.cpp.o: ../graphReader.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../main.cpp
 

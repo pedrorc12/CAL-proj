@@ -39,18 +39,24 @@ class Vertex {
 	bool visited;  // for path finding
 	Edge<T> *path; // for path finding
 	double dist;   // for path finding
+    int queueIndex = 0; 		// required by MutablePriorityQueue
+    int vertexIndex = 0;
 
 	Vertex(T in);
 	Vertex(T in, double latitude, double longitude);
 	void addEdge(Edge<T> *e);
-	bool operator<(Vertex<T> & vertex) const; // required by MutablePriorityQueue
 
 public:
     double getDistance(Vertex<T>* vertex2);
 	T getInfo() const;
 	vector<Edge<T> *> getIncoming() const;
 	vector<Edge<T> *> getOutgoing() const;
-	friend class Graph<T>;
+    int getVertexIndex() const;
+    void setVertexIndex(const int &index);
+
+    bool operator<(Vertex<T> & vertex) const; // required by MutablePriorityQueue
+    friend class Graph<T>;
+    friend class MutablePriorityQueue<Vertex<T>>;
 };
 
 
@@ -91,6 +97,16 @@ vector<Edge<T> *>  Vertex<T>::getOutgoing() const {
 	return this->outgoing;
 }
 
+template <class T>
+int Vertex<T>::getVertexIndex() const {
+    return vertexIndex;
+}
+
+template <class T>
+void Vertex<T>::setVertexIndex(const int &index) {
+    vertexIndex = index;
+}
+
 
 /* ================================================================================================
  * Class Edge
@@ -124,8 +140,9 @@ Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double weight):
 template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;
-
-	void dijkstraShortestPath(Vertex<T> *s);
+    std::vector<std::vector<double>> dp;
+    std::vector<std::vector<Vertex<T>*>> next;
+    void resetTable();
 
 public:
 	Vertex<T>* findVertex(const T &inf) const;
@@ -133,6 +150,11 @@ public:
 	Vertex<T> *addVertex(const T &in);
     Vertex<T> *addVertex(const T &in, const double &lati, const double &longi);
     Edge<T> *addEdge(const T &source, const T &dest, double weight);
+    int getNumVertex() const;
+
+    void dijkstraShortestPath(Vertex<T> *s);
+    void floydWarshallShortestPath();
+    std::vector<T> getfloydWarshallPath(const T &origin, const T &dest) const;
 };
 
 template <class T>
@@ -164,6 +186,11 @@ Edge<T> * Graph<T>::addEdge(const T &source, const T &dest, double weight) {
 	Edge<T> *e = new Edge<T>(s, d, weight);
 	s->addEdge(e);
 	return e;
+}
+
+template <class T>
+int Graph<T>::getNumVertex() const {
+    return vertexSet.size();
 }
 
 template <class T>
@@ -211,6 +238,65 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
         }
         vertex->visited = true;
     }
+}
+
+
+template<class T>
+void Graph<T>::floydWarshallShortestPath() {
+
+    resetTable();
+
+    for (int k = 0; k < getNumVertex(); k++) {
+        for (int i = 0; i < getNumVertex(); i++) {
+            for (int j = 0; j < getNumVertex(); j++) {
+                if (dp[i][j] > dp[i][k] + dp[k][j]) {
+                    dp[i][j] = dp[i][k] + dp[k][j];
+                    next[i][j] = next[i][k];
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void Graph<T>::resetTable() {
+
+    dp = std::vector<std::vector<double>>(getNumVertex(), std::vector<double>(getNumVertex(), INF));
+    next = std::vector<std::vector<Vertex<T>*>>(getNumVertex(), std::vector<Vertex<T>*>(getNumVertex(), nullptr));
+
+    for (int i = 0; i < getNumVertex(); i++) {
+        for (int j = 0; j < getNumVertex(); j++) {
+            if (i == j) {
+                dp[i][j] = 0;
+                next[i][j] = vertexSet[j];
+                continue;
+            }
+
+            for (Edge<T> edge : vertexSet[i]->adj) {
+                if (edge.dest == vertexSet[j]) {
+                    dp[i][j] = edge.weight;
+                    next[i][j] = vertexSet[j];
+                    break;
+                }
+            }
+        }
+    }
+}
+
+template<class T>
+std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const{
+    std::vector<T> res;
+
+    Vertex<T>* vertex = findVertex(orig);
+    Vertex<T>* end = findVertex(dest);
+
+    while (vertex != end) {
+        res.push_back(vertex->info);
+        vertex = next[vertex->getVertexIndex()][end->getVertexIndex()];
+    }
+    res.push_back(end->info);
+
+    return res;
 }
 
 #endif

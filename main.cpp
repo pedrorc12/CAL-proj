@@ -1,10 +1,15 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
-#include <String>
+#include <string>
 #include "Graph.h"
+#include "graphviewer.h"
 
 int main() {
+
+    GraphViewer gv;
+    gv.setCenter(sf::Vector2f(300, 300));
+
     ifstream nodes;
     ifstream edges;
     string info;
@@ -14,12 +19,13 @@ int main() {
 
     Graph<int> graph;
     nodes.open(R"(C:\Users\Pedro\CLionProjects\CAL-project\GridGraphs\4x4\nodes.txt)");
+    //nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
     if (!nodes.is_open()) perror("Failed to open file nodes");
     getline(nodes, info);
     while(getline(nodes, info)){
         pos = info.find_first_of(digits);
         end = info.find_first_of(',');
-        int ID = std::atoi(info.substr(pos, end).c_str());
+        int id = std::atoi(info.substr(pos, end).c_str());
         pos = info.find_first_of(digits, end);
         end = info.find_first_of(',', pos);
         int lati = std::atoi(info.substr(pos, end).c_str());
@@ -27,15 +33,21 @@ int main() {
         end = info.find_first_of(')', pos);
         int longi = std::atoi(info.substr(pos, end).c_str());
 
-        cout << "(ID, latitude, longitude) " << "(" << ID << ", " << lati  << ", " << longi << ")" << endl;
+        cout << "(id, latitude, longitude) " << "(" << id << ", " << lati  << ", " << longi << ")" << endl;
 
-        graph.addVertex(ID);
+        graph.addVertex(id, lati, longi);
+
+        GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(lati, longi));
+        node.setColor(GraphViewer::BLUE);
+        node.setLabel(to_string(id));
     }
     nodes.close();
 
     edges.open(R"(C:\Users\Pedro\CLionProjects\CAL-project\GridGraphs\4x4\edges.txt)");
+    //edges.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt");
     if (!edges.is_open()) perror("Failed to open file edges");
     getline(edges, info);
+    int id = 0;
     while(getline(edges, info)){
         pos = info.find_first_of(digits);
         end = info.find_first_of(',');
@@ -46,9 +58,22 @@ int main() {
 
         cout << "(source, dest) " << "(" << source <<  ", " << dest << ")" << endl;
 
+        double distance = (graph.findVertex(source)->getDistance(graph.findVertex(dest)));
 
-        //add edge
+        graph.addEdge(source, dest, distance);
+
+        GraphViewer::Edge &edge = gv.addEdge(id, gv.getNode(source), gv.getNode(dest), GraphViewer::Edge::EdgeType::DIRECTED);
+        edge.setColor(GraphViewer::YELLOW);
+        edge.setWeight(distance);
+
+        id++;
     }
-    nodes.close();
+    edges.close();
+
+    //gv.setBackground("../TP7_graphviewer/resources/background.png");
+
+    gv.createWindow(600, 600);
+    gv.join();
+
     return 0;
 }

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/victor/Documentos/CAL/Projeto/lib/GraphViewerCpp/include
 
-CXX_FLAGS = -g -std=gnu++14
+CXX_FLAGS = -g
 

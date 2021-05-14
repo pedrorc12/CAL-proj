@@ -98,6 +98,7 @@ CAL_project_EXTERNAL_OBJECTS =
 
 CAL_project: CMakeFiles/CAL_project.dir/main.cpp.o
 CAL_project: CMakeFiles/CAL_project.dir/build.make
+CAL_project: ../lib/GraphViewerCpp/lib/libgraphviewer.a
 CAL_project: CMakeFiles/CAL_project.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/victor/Documentos/CAL/Projeto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable CAL_project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CAL_project.dir/link.txt --verbose=$(VERBOSE)

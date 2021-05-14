@@ -12,6 +12,7 @@
 #include <limits>
 #include <iostream>
 #include <cmath>
+#include "MutablePriorityQueue.h"
 
 using namespace std;
 
@@ -100,9 +101,9 @@ template <class T>
 class Edge {
 	Vertex<T> * orig;
 	Vertex<T> * dest;
-	double cost;
+	double weight;
 
-	Edge(Vertex<T> *o, Vertex<T> *d, double cost);
+	Edge(Vertex<T> *o, Vertex<T> *d, double weight);
 
 public:
 	friend class Graph<T>;
@@ -110,8 +111,8 @@ public:
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double cost):
-	orig(o), dest(d), cost(cost) {}
+Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double weight):
+	orig(o), dest(d), weight(weight) {}
 
 
 
@@ -131,7 +132,7 @@ public:
 	vector<Vertex<T> *> getVertexSet() const;
 	Vertex<T> *addVertex(const T &in);
     Vertex<T> *addVertex(const T &in, const double &lati, const double &longi);
-    Edge<T> *addEdge(const T &sourc, const T &dest, double cost);
+    Edge<T> *addEdge(const T &source, const T &dest, double weight);
 };
 
 template <class T>
@@ -155,12 +156,12 @@ Vertex<T> * Graph<T>::addVertex(const T &in, const double &lati, const double &l
 }
 
 template <class T>
-Edge<T> * Graph<T>::addEdge(const T &sourc, const T &dest, double cost) {
-	auto s = findVertex(sourc);
+Edge<T> * Graph<T>::addEdge(const T &source, const T &dest, double weight) {
+	auto s = findVertex(source);
 	auto d = findVertex(dest);
 	if (s == nullptr || d == nullptr)
 		return nullptr;
-	Edge<T> *e = new Edge<T>(s, d, cost);
+	Edge<T> *e = new Edge<T>(s, d, weight);
 	s->addEdge(e);
 	return e;
 }
@@ -178,9 +179,38 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 	return vertexSet;
 }
 
-template <class T>
-void Graph<T>::dijkstraShortestPath(Vertex<T> *s) {
+template<class T>
+void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
 
+    for (Vertex<T>* vertex : vertexSet) {
+        vertex->dist = INF;
+        vertex->path = nullptr;
+        vertex->visited = false;
+    }
+    
+    s->dist = 0;
+    MutablePriorityQueue<Vertex<T>> queue;
+    queue.insert(s);
+
+    while(!queue.empty()) {
+        Vertex<T>* vertex = queue.extractMin();
+
+        for (Edge<T> edge : vertex->adj) {
+            Vertex<T>* vertex_dest = edge.dest;
+            if (!(vertex_dest->visited) && (vertex_dest->dist > vertex->dist + edge.weight)) {
+                if (vertex_dest->dist == INF) {
+                    vertex_dest->dist = vertex->dist + edge.weight;
+                    vertex_dest->path = vertex;
+                    queue.insert(vertex_dest);
+                } else {
+                    vertex_dest->dist = vertex->dist + edge.weight;
+                    vertex_dest->path = vertex;
+                    queue.decreaseKey(vertex_dest);
+                }
+            }
+        }
+        vertex->visited = true;
+    }
 }
 
 #endif

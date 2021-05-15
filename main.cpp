@@ -4,7 +4,8 @@
 #include <string>
 #include "Graph.h"
 #include "graphviewer.h"
-#include "graphReader.h"
+#include "GraphReader.h"
+#include "Volunteer.h"
 
 int main() {
 

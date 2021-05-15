@@ -46,11 +46,7 @@ cmath
 MutablePriorityQueue.h
 /home/victor/Documentos/CAL/Projeto/MutablePriorityQueue.h
 
-/home/victor/Documentos/CAL/Projeto/MutablePriorityQueue.h
-vector
--
-
-/home/victor/Documentos/CAL/Projeto/graphReader.h
+/home/victor/Documentos/CAL/Projeto/GraphReader.h
 fstream
 -
 string
@@ -59,6 +55,14 @@ Graph.h
 /home/victor/Documentos/CAL/Projeto/Graph.h
 graphviewer.h
 /home/victor/Documentos/CAL/Projeto/graphviewer.h
+
+/home/victor/Documentos/CAL/Projeto/MutablePriorityQueue.h
+vector
+-
+
+/home/victor/Documentos/CAL/Projeto/Volunteer.h
+Graph.h
+/home/victor/Documentos/CAL/Projeto/Graph.h
 
 /home/victor/Documentos/CAL/Projeto/main.cpp
 iostream
@@ -73,6 +77,8 @@ Graph.h
 /home/victor/Documentos/CAL/Projeto/Graph.h
 graphviewer.h
 /home/victor/Documentos/CAL/Projeto/graphviewer.h
-graphReader.h
-/home/victor/Documentos/CAL/Projeto/graphReader.h
+GraphReader.h
+/home/victor/Documentos/CAL/Projeto/GraphReader.h
+Volunteer.h
+/home/victor/Documentos/CAL/Projeto/Volunteer.h
 

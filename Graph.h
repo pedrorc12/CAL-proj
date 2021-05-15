@@ -33,8 +33,7 @@ class Vertex {
 	T info;
     double latitude;
     double longitude;
-	vector<Edge<T> *> outgoing;
-	vector<Edge<T> *> incoming;
+    vector<Edge<T>*> adj;		// outgoing edges
 
 	bool visited;  // for path finding
 	Edge<T> *path; // for path finding
@@ -42,15 +41,14 @@ class Vertex {
     int queueIndex = 0; 		// required by MutablePriorityQueue
     int vertexIndex = 0;
 
-	Vertex(T in);
+    Vertex(T in);
 	Vertex(T in, double latitude, double longitude);
 	void addEdge(Edge<T> *e);
 
 public:
     double getDistance(Vertex<T>* vertex2);
 	T getInfo() const;
-	vector<Edge<T> *> getIncoming() const;
-	vector<Edge<T> *> getOutgoing() const;
+	vector<Edge<T> *> getAdj() const;
     int getVertexIndex() const;
     void setVertexIndex(const int &index);
 
@@ -73,8 +71,7 @@ double Vertex<T>::getDistance(Vertex<T>* vertex2) {
 
 template <class T>
 void Vertex<T>::addEdge(Edge<T> *e) {
-	outgoing.push_back(e);
-	e->dest->incoming.push_back(e);
+	adj.push_back(e);
 }
 
 template <class T>
@@ -88,18 +85,13 @@ T Vertex<T>::getInfo() const {
 }
 
 template <class T>
-vector<Edge<T> *>  Vertex<T>::getIncoming() const {
-	return this->incoming;
-}
-
-template <class T>
-vector<Edge<T> *>  Vertex<T>::getOutgoing() const {
-	return this->outgoing;
+vector<Edge<T> *>  Vertex<T>::getAdj() const {
+	return this->adj;
 }
 
 template <class T>
 int Vertex<T>::getVertexIndex() const {
-    return vertexIndex;
+    return this->vertexIndex;
 }
 
 template <class T>
@@ -222,15 +214,15 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
     while(!queue.empty()) {
         Vertex<T>* vertex = queue.extractMin();
 
-        for (Edge<T> edge : vertex->adj) {
-            Vertex<T>* vertex_dest = edge.dest;
+        for (Edge<T>* edge : vertex->adj) {
+            Vertex<T>* vertex_dest = edge->dest;
             if (!(vertex_dest->visited) && (vertex_dest->dist > vertex->dist + edge.weight)) {
                 if (vertex_dest->dist == INF) {
-                    vertex_dest->dist = vertex->dist + edge.weight;
+                    vertex_dest->dist = vertex->dist + edge->weight;
                     vertex_dest->path = vertex;
                     queue.insert(vertex_dest);
                 } else {
-                    vertex_dest->dist = vertex->dist + edge.weight;
+                    vertex_dest->dist = vertex->dist + edge->weight;
                     vertex_dest->path = vertex;
                     queue.decreaseKey(vertex_dest);
                 }

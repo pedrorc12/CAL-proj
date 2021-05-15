@@ -31,7 +31,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
         end = info.find_first_of(')', pos);
         int longi = std::atoi(info.substr(pos, end).c_str());
 
-        cout << "(id, latitude, longitude) " << "(" << id << ", " << lati  << ", " << longi << ")" << endl;
+        //cout << "(id, latitude, longitude) " << "(" << id << ", " << lati  << ", " << longi << ")" << endl;
 
         graph.addVertex(id, lati, longi);
 
@@ -54,7 +54,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
         end = info.find_first_of(')', pos);
         int dest = std::atoi(info.substr(pos, end).c_str());
 
-        cout << "(source, dest) " << "(" << source <<  ", " << dest << ")" << endl;
+        //cout << "(source, dest) " << "(" << source <<  ", " << dest << ")" << endl;
 
         double distance = (graph.findVertex(source)->getDistance(graph.findVertex(dest)));
 

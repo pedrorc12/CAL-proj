@@ -3,8 +3,6 @@
 
 #include "Graph.h"
 
-int actualId = 1;
-
 template <class T>
 class Volunteer {
     int id;
@@ -12,20 +10,25 @@ class Volunteer {
     double endTime;
     double actualTime;
     Vertex<T>* actualLocation;
+    static int idCounter;
 
 public:
     Volunteer(double startTime, double endTime, Vertex<T>* initialLocation);
+    int getId() { return id; }
 };
 
 template <class T>
+int Volunteer<T>::idCounter = 1;
+
+template <class T>
 Volunteer<T>::Volunteer(double startTime, double endTime, Vertex<T> *initialLocation) {
-    id = actualId;
+    id = idCounter;
     startTime = startTime;
     endTime = endTime;
     actualTime = startTime;
     actualLocation = initialLocation;
 
-    actualId++;
+    idCounter++;
 }
 
 #endif //CAL_PROJECT_VOLUNTEER_H

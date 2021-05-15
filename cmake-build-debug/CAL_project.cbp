@@ -372,10 +372,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/victor/Documentos/CAL/Projeto/Volunteer.h">
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/Donation.h">
 			<Option target="CAL_project"/>
 		</Unit>
-		<Unit filename="/home/victor/Documentos/CAL/Projeto/graphReader.h">
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/DonationSolution.h">
+			<Option target="CAL_project"/>
+		</Unit>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/GraphReader.h">
+			<Option target="CAL_project"/>
+		</Unit>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/Volunteer.h">
 			<Option target="CAL_project"/>
 		</Unit>
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/lib/GraphViewerCpp/src/edge.cpp">

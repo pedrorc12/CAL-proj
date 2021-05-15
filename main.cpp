@@ -6,6 +6,8 @@
 #include "graphviewer.h"
 #include "GraphReader.h"
 #include "Volunteer.h"
+#include "Donation.h"
+#include "DonationSolution.h"
 
 int main() {
 

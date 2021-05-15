@@ -4,6 +4,8 @@
 CMakeFiles/CAL_project.dir/main.cpp.o: ../lib/GraphViewerCpp/include/fpsmonitor.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../lib/GraphViewerCpp/include/graphviewer.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../lib/GraphViewerCpp/include/lines.h
+CMakeFiles/CAL_project.dir/main.cpp.o: ../Donation.h
+CMakeFiles/CAL_project.dir/main.cpp.o: ../DonationSolution.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../Graph.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../GraphReader.h
 CMakeFiles/CAL_project.dir/main.cpp.o: ../MutablePriorityQueue.h

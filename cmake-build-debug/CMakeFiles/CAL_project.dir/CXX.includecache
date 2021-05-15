@@ -32,6 +32,16 @@ lines.h
 
 ../lib/GraphViewerCpp/include/lines.h
 
+/home/victor/Documentos/CAL/Projeto/Donation.h
+Graph.h
+/home/victor/Documentos/CAL/Projeto/Graph.h
+
+/home/victor/Documentos/CAL/Projeto/DonationSolution.h
+Donation.h
+/home/victor/Documentos/CAL/Projeto/Donation.h
+Volunteer.h
+/home/victor/Documentos/CAL/Projeto/Volunteer.h
+
 /home/victor/Documentos/CAL/Projeto/Graph.h
 vector
 -
@@ -81,4 +91,8 @@ GraphReader.h
 /home/victor/Documentos/CAL/Projeto/GraphReader.h
 Volunteer.h
 /home/victor/Documentos/CAL/Projeto/Volunteer.h
+Donation.h
+/home/victor/Documentos/CAL/Projeto/Donation.h
+DonationSolution.h
+/home/victor/Documentos/CAL/Projeto/DonationSolution.h
 

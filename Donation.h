@@ -22,9 +22,9 @@ int Donation<T>::idCounter = 1;
 
 template <class T>
 Donation<T>::Donation(Vertex<T>* initialLocation, Vertex<T>* destination) {
-    id = idCounter;
-    initialLocation = initialLocation;
-    destination = destination;
+    this->id = idCounter;
+    this->initialLocation = initialLocation;
+    this->destination = destination;
 
     idCounter++;
 }

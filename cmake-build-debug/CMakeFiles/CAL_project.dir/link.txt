@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/CAL_project.dir/main.cpp.o -o CAL_project  ../lib/GraphViewerCpp/lib/libgraphviewer.a -lsfml-graphics -lsfml-window -lsfml-system -lpthread -lX11 
+/usr/bin/c++ -g CMakeFiles/CAL_project.dir/main.cpp.o CMakeFiles/CAL_project.dir/Tests/tests.cpp.o -o CAL_project  ../lib/GraphViewerCpp/lib/libgraphviewer.a -lsfml-graphics -lsfml-window -lsfml-system -lpthread -lX11 

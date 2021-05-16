@@ -9,11 +9,11 @@
 template <class T>
 class Solver {
 public:
-    vector<DonationSolution<T>*> solveProblem(Graph<T> graph, vector<Volunteer<T>*> volunteers, vector<Donation<T>*> donations);
+    vector<DonationSolution<T>*> solveProblem(Graph<T> &graph, vector<Volunteer<T>*> &volunteers, vector<Donation<T>*> &donations);
 };
 
 template <class T>
-vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> graph, vector<Volunteer<T>*> volunteers, vector<Donation<T>*> donations) {
+vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> &graph, vector<Volunteer<T>*> &volunteers, vector<Donation<T>*> &donations) {
 
     graph.floydWarshallShortestPath();
     vector<DonationSolution<T>*> res;
@@ -45,7 +45,16 @@ vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> graph, vector<Volu
             double pickUpTime = nearestVolunteer->getActualTime() + nearestVolunteerTravelTime;
             double deliveredTime = pickUpTime + graph.getShortestPathTable()[donationIndex][destinationIndex];
 
-            res.push_back(new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime));
+            DonationSolution<T>* ds = new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime);
+
+            //Finding the path traveled by the volunteer to the donation and then to the destination
+            ds->setPath(graph.getFloydWarshallPath(nearestVolunteer->getActualLocation(), donation->getDestination()));
+
+            //Update volunteer attributes
+            nearestVolunteer->setActualTime(deliveredTime);
+            nearestVolunteer->setActualLocation(donation->getDestination());
+
+            res.push_back(ds);
         }
     }
     return res;

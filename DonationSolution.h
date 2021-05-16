@@ -14,22 +14,22 @@ class DonationSolution {
 
 public:
     DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime);
-    void addVertex(Vertex<T>* vertex);
+    void setPath(vector<Vertex<T>*> newPath);
     void printSolution();
     void printPath();
 };
 
 template <class T>
 DonationSolution<T>::DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime) {
-    donation = donation;
-    volunteer = volunteer;
-    pickUpTime = pickUpTime;
-    deliveredTime = deliveredTime;
+    this->donation = donation;
+    this->volunteer = volunteer;
+    this->pickUpTime = pickUpTime;
+    this->deliveredTime = deliveredTime;
 }
 
 template <class T>
-void DonationSolution<T>::addVertex(Vertex<T>* vertex) {
-    path.push_back(vertex);
+void DonationSolution<T>::setPath(vector<Vertex<T>*> newPath) {
+    this->path = newPath;
 }
 
 template <class T>

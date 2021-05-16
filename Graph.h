@@ -144,7 +144,7 @@ public:
 
     void dijkstraShortestPath(Vertex<T> *s);
     void floydWarshallShortestPath();
-    std::vector<T> getfloydWarshallPath(const T &origin, const T &dest) const;
+    std::vector<Vertex<T>*> getFloydWarshallPath(Vertex<T>* vertex, Vertex<T>* end) const;
 };
 
 template <class T>
@@ -211,7 +211,7 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
 
         for (Edge<T>* edge : vertex->adj) {
             Vertex<T>* vertex_dest = edge->dest;
-            if (!(vertex_dest->visited) && (vertex_dest->dist > vertex->dist + edge.weight)) {
+            if (!(vertex_dest->visited) && (vertex_dest->dist > vertex->dist + edge->weight)) {
                 if (vertex_dest->dist == INF) {
                     vertex_dest->dist = vertex->dist + edge->weight;
                     vertex_dest->path = vertex;
@@ -262,9 +262,9 @@ void Graph<T>::resetTable() {
                 continue;
             }
 
-            for (Edge<T> edge : vertexSet[i]->adj) {
-                if (edge.dest == vertexSet[j]) {
-                    shortestPathTable[i][j] = edge.weight;
+            for (Edge<T>* edge : vertexSet[i]->adj) {
+                if (edge->dest == vertexSet[j]) {
+                    shortestPathTable[i][j] = edge->weight;
                     nextVertexTable[i][j] = vertexSet[j];
                     break;
                 }
@@ -274,17 +274,14 @@ void Graph<T>::resetTable() {
 }
 
 template<class T>
-std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const{
-    std::vector<T> res;
-
-    Vertex<T>* vertex = findVertex(orig);
-    Vertex<T>* end = findVertex(dest);
+std::vector<Vertex<T>*> Graph<T>::getFloydWarshallPath(Vertex<T>* vertex, Vertex<T>* end) const{
+    std::vector<Vertex<T>*> res;
 
     while (vertex != end) {
-        res.push_back(vertex->info);
+        res.push_back(vertex);
         vertex = nextVertexTable[vertex->getVertexIndex()][end->getVertexIndex()];
     }
-    res.push_back(end->info);
+    res.push_back(end);
 
     return res;
 }

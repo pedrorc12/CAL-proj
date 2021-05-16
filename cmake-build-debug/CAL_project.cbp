@@ -384,6 +384,12 @@
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/Solver.h">
 			<Option target="CAL_project"/>
 		</Unit>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/Tests/tests.cpp">
+			<Option target="CAL_project"/>
+		</Unit>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/Tests/tests.h">
+			<Option target="CAL_project"/>
+		</Unit>
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/Volunteer.h">
 			<Option target="CAL_project"/>
 		</Unit>

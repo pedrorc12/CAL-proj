@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CAL_project"
   "CAL_project.pdb"
+  "CMakeFiles/CAL_project.dir/Tests/tests.cpp.o"
   "CMakeFiles/CAL_project.dir/main.cpp.o"
 )
 

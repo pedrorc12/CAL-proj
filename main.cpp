@@ -5,10 +5,8 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "GraphReader.h"
-#include "Volunteer.h"
-#include "Donation.h"
-#include "DonationSolution.h"
-#include "Solver.h"
+
+#include "Tests/tests.h"
 
 int main() {
 
@@ -16,6 +14,8 @@ int main() {
     GraphViewer gv;
 
     readGraph(graph, gv);
+
+    test1(graph, gv);
 
     return 0;
 }

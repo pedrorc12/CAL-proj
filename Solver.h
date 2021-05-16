@@ -48,7 +48,7 @@ vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> &graph, vector<Vol
             DonationSolution<T>* ds = new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime);
 
             //Finding the path traveled by the volunteer to the donation and then to the destination
-            ds->setPath(graph.getFloydWarshallPath(nearestVolunteer->getActualLocation(), donation->getDestination()));
+            ds->findPath(graph.getNextVertexTable());
 
             //Update volunteer attributes
             nearestVolunteer->setActualTime(deliveredTime);

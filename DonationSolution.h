@@ -14,10 +14,28 @@ class DonationSolution {
 
 public:
     DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime);
-    void setPath(vector<Vertex<T>*> newPath);
+    void findPath(vector<vector<Vertex<T>*>> nextVertexTable);
     void printSolution();
     void printPath();
 };
+
+template <class T>
+void DonationSolution<T>::findPath(vector<vector<Vertex<T>*>> nextVertexTable) {
+
+    Vertex<T>* vertex = volunteer->getActualLocation();
+    Vertex<T>* donationVertex = donation->getInitialLocation();
+    Vertex<T>* destinationVertex = donation->getDestination();
+
+    while (vertex != donationVertex) {
+        path.push_back(vertex);
+        vertex = nextVertexTable[vertex->getVertexIndex()][donationVertex->getVertexIndex()];
+    }
+    while (vertex != destinationVertex) {
+        path.push_back(vertex);
+        vertex = nextVertexTable[vertex->getVertexIndex()][destinationVertex->getVertexIndex()];
+    }
+    path.push_back(destinationVertex);
+}
 
 template <class T>
 DonationSolution<T>::DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime) {
@@ -25,11 +43,6 @@ DonationSolution<T>::DonationSolution(Donation<T>* donation, Volunteer<T>* volun
     this->volunteer = volunteer;
     this->pickUpTime = pickUpTime;
     this->deliveredTime = deliveredTime;
-}
-
-template <class T>
-void DonationSolution<T>::setPath(vector<Vertex<T>*> newPath) {
-    this->path = newPath;
 }
 
 template <class T>

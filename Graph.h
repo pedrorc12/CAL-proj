@@ -134,7 +134,7 @@ class Graph {
 
 public:
     vector<vector<double>> getShortestPathTable() { return shortestPathTable; }
-    vector<vector<double>> getNextVertexTable() { return nextVertexTable; }
+    vector<vector<Vertex<T>*>> getNextVertexTable() { return nextVertexTable; }
 
 	Vertex<T>* findVertex(const T &inf) const;
 	vector<Vertex<T> *> getVertexSet() const;

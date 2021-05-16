@@ -68,10 +68,6 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     }
     edges.close();
 
-    //gv.setBackground("../TP7_graphviewer/resources/background.png");
-
-    /*gv.createWindow(600, 600);
-    gv.join();*/
 }
 
 #endif //CAL_PROJECT_GRAPHREADER_H

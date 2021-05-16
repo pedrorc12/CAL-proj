@@ -16,10 +16,13 @@ template <class T>
 vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> graph, vector<Volunteer<T>*> volunteers, vector<Donation<T>*> donations) {
 
     graph.floydWarshallShortestPath();
+    vector<DonationSolution<T>*> res;
 
     for (Donation<T>* donation : donations) {
 
         int donationIndex = donation->getInitialLocation()->getVertexIndex();
+        int destinationIndex = donation->getDestination()->getVertexIndex();
+
         Volunteer<T>* nearestVolunteer = nullptr;
         double nearestVolunteerTravelTime = 0;
 
@@ -37,7 +40,14 @@ vector<DonationSolution<T>*> Solver<T>::solveProblem(Graph<T> graph, vector<Volu
                 }
             }
         }
-    }
 
+        if (nearestVolunteer != nullptr) {
+            double pickUpTime = nearestVolunteer->getActualTime() + nearestVolunteerTravelTime;
+            double deliveredTime = pickUpTime + graph.getShortestPathTable()[donationIndex][destinationIndex];
+
+            res.push_back(new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime));
+        }
+    }
+    return res;
 }
 #endif //CAL_PROJECT_SOLVER_H

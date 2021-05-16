@@ -28,7 +28,7 @@ void test2(Graph<int> &graph, GraphViewer &viewer) {
 
     vector<Volunteer<int>*> volunteers;
     volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(5)));
-    volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(6)));
+    volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(1)));
     volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(10)));
     volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(20)));
 

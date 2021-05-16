@@ -15,6 +15,6 @@ set(GRAPHVIEWERCPP_PATH lib/GraphViewerCpp)
 add_subdirectory(${GRAPHVIEWERCPP_PATH})
 include_directories(${GRAPHVIEWERCPP_PATH}/include)
 
-add_executable(CAL_project main.cpp GraphReader.h Volunteer.h Donation.h DonationSolution.h)
+add_executable(CAL_project main.cpp GraphReader.h Volunteer.h Donation.h DonationSolution.h Solver.h)
 
 target_link_libraries(CAL_project graphviewer)

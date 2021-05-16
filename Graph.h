@@ -41,7 +41,6 @@ class Vertex {
     int queueIndex = 0; 		// required by MutablePriorityQueue
     int vertexIndex = 0;
 
-    Vertex(T in);
 	Vertex(T in, double latitude, double longitude);
 	void addEdge(Edge<T> *e);
 
@@ -56,10 +55,6 @@ public:
     friend class Graph<T>;
     friend class MutablePriorityQueue<Vertex<T>>;
 };
-
-
-template <class T>
-Vertex<T>::Vertex(T in): info(in) {}
 
 template <class T>
 Vertex<T>::Vertex(T in, double latitude, double longitude) : info(in), latitude(latitude), longitude(longitude) {}
@@ -132,14 +127,17 @@ Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double weight):
 template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;
-    std::vector<std::vector<double>> dp;
-    std::vector<std::vector<Vertex<T>*>> next;
+    vector<vector<double>> shortestPathTable;
+    vector<vector<Vertex<T>*>> nextVertexTable;
     void resetTable();
+    bool needUpdate = true;
 
 public:
+    vector<vector<double>> getShortestPathTable() { return shortestPathTable; }
+    vector<vector<double>> getNextVertexTable() { return nextVertexTable; }
+
 	Vertex<T>* findVertex(const T &inf) const;
 	vector<Vertex<T> *> getVertexSet() const;
-	Vertex<T> *addVertex(const T &in);
     Vertex<T> *addVertex(const T &in, const double &lati, const double &longi);
     Edge<T> *addEdge(const T &source, const T &dest, double weight);
     int getNumVertex() const;
@@ -150,22 +148,17 @@ public:
 };
 
 template <class T>
-Vertex<T> * Graph<T>::addVertex(const T &in) {
-	Vertex<T> *v = findVertex(in);
-	if (v != nullptr)
-		return v;
-	v = new Vertex<T>(in);
-	vertexSet.push_back(v);
-	return v;
-}
-
-template <class T>
 Vertex<T> * Graph<T>::addVertex(const T &in, const double &lati, const double &longi) {
     Vertex<T> *v = findVertex(in);
     if (v != nullptr)
         return v;
+
     v = new Vertex<T>(in, lati, longi);
+    v->setVertexIndex(vertexSet.size());
     vertexSet.push_back(v);
+
+    needUpdate = true;
+
     return v;
 }
 
@@ -177,6 +170,8 @@ Edge<T> * Graph<T>::addEdge(const T &source, const T &dest, double weight) {
 		return nullptr;
 	Edge<T> *e = new Edge<T>(s, d, weight);
 	s->addEdge(e);
+    needUpdate = true;
+
 	return e;
 }
 
@@ -236,38 +231,41 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
 template<class T>
 void Graph<T>::floydWarshallShortestPath() {
 
-    resetTable();
+    if (!needUpdate)
+        return;
 
+    resetTable();
     for (int k = 0; k < getNumVertex(); k++) {
         for (int i = 0; i < getNumVertex(); i++) {
             for (int j = 0; j < getNumVertex(); j++) {
-                if (dp[i][j] > dp[i][k] + dp[k][j]) {
-                    dp[i][j] = dp[i][k] + dp[k][j];
-                    next[i][j] = next[i][k];
+                if (shortestPathTable[i][j] > shortestPathTable[i][k] + shortestPathTable[k][j]) {
+                    shortestPathTable[i][j] = shortestPathTable[i][k] + shortestPathTable[k][j];
+                    nextVertexTable[i][j] = nextVertexTable[i][k];
                 }
             }
         }
     }
+    needUpdate = false;
 }
 
 template <class T>
 void Graph<T>::resetTable() {
 
-    dp = std::vector<std::vector<double>>(getNumVertex(), std::vector<double>(getNumVertex(), INF));
-    next = std::vector<std::vector<Vertex<T>*>>(getNumVertex(), std::vector<Vertex<T>*>(getNumVertex(), nullptr));
+    shortestPathTable = std::vector<std::vector<double>>(getNumVertex(), std::vector<double>(getNumVertex(), INF));
+    nextVertexTable = std::vector<std::vector<Vertex<T>*>>(getNumVertex(), std::vector<Vertex<T>*>(getNumVertex(), nullptr));
 
     for (int i = 0; i < getNumVertex(); i++) {
         for (int j = 0; j < getNumVertex(); j++) {
             if (i == j) {
-                dp[i][j] = 0;
-                next[i][j] = vertexSet[j];
+                shortestPathTable[i][j] = 0;
+                nextVertexTable[i][j] = vertexSet[j];
                 continue;
             }
 
             for (Edge<T> edge : vertexSet[i]->adj) {
                 if (edge.dest == vertexSet[j]) {
-                    dp[i][j] = edge.weight;
-                    next[i][j] = vertexSet[j];
+                    shortestPathTable[i][j] = edge.weight;
+                    nextVertexTable[i][j] = vertexSet[j];
                     break;
                 }
             }
@@ -284,7 +282,7 @@ std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) cons
 
     while (vertex != end) {
         res.push_back(vertex->info);
-        vertex = next[vertex->getVertexIndex()][end->getVertexIndex()];
+        vertex = nextVertexTable[vertex->getVertexIndex()][end->getVertexIndex()];
     }
     res.push_back(end->info);
 

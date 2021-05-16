@@ -8,6 +8,7 @@
 #include "Volunteer.h"
 #include "Donation.h"
 #include "DonationSolution.h"
+#include "Solver.h"
 
 int main() {
 

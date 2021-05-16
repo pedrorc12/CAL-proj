@@ -15,6 +15,10 @@ class Volunteer {
 public:
     Volunteer(double startTime, double endTime, Vertex<T>* initialLocation);
     int getId() { return id; }
+    double getStartTime() { return startTime; }
+    double getEndTime() { return endTime; }
+    double getActualTime() { return actualTime; }
+    Vertex<T>* getActualLocation() { return actualLocation; }
 };
 
 template <class T>

@@ -12,7 +12,9 @@ class Donation {
 
 public:
     Donation(Vertex<T>* initialLocation, Vertex<T>* destination);
-    int getId() { return id; };
+    int getId() { return id; }
+    Vertex<T>* getInitialLocation() { return initialLocation; }
+    Vertex<T>* getDestination() { return destination; }
 };
 
 template <class T>

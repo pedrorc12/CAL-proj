@@ -381,6 +381,9 @@
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/GraphReader.h">
 			<Option target="CAL_project"/>
 		</Unit>
+		<Unit filename="/home/victor/Documentos/CAL/Projeto/Solver.h">
+			<Option target="CAL_project"/>
+		</Unit>
 		<Unit filename="/home/victor/Documentos/CAL/Projeto/Volunteer.h">
 			<Option target="CAL_project"/>
 		</Unit>

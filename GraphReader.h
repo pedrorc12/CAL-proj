@@ -16,8 +16,8 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     size_t pos;
     size_t end;
 
-    //nodes.open(R"(C:\Users\Pedro\CLionProjects\CAL-project\GridGraphs\4x4\nodes.txt)");
-    nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
+    nodes.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt");
+    //nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
     if (!nodes.is_open()) perror("Failed to open file nodes");
     getline(nodes, info);
     while(getline(nodes, info)){
@@ -41,8 +41,8 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     }
     nodes.close();
 
-    //edges.open(R"(C:\Users\Pedro\CLionProjects\CAL-project\GridGraphs\4x4\edges.txt)");
-    edges.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt");
+    edges.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt");
+    //edges.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt");
     if (!edges.is_open()) perror("Failed to open file edges");
     getline(edges, info);
     int id = 0;

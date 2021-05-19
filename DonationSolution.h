@@ -15,6 +15,7 @@ class DonationSolution {
 public:
     DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime);
     void findPath(vector<vector<Vertex<T>*>> nextVertexTable);
+    void connectPath(vector<Vertex<T> *> toDonation, vector<Vertex<T> *> toDelivery);
     void printSolution();
     void printPath();
 };
@@ -62,6 +63,16 @@ void DonationSolution<T>::printPath() {
 
         if (i != path.size() - 1)
             cout << " -> ";
+    }
+}
+
+template<class T>
+void DonationSolution<T>::connectPath(vector<Vertex<T> *> toDonation, vector<Vertex<T> *> toDelivery) {
+    for(int i = 0; i < toDonation.size() - 1; i++){
+        path.push_back(toDonation[i]);
+    }
+    for(Vertex<T> *vert: toDelivery){
+        path.push_back(vert);
     }
 }
 

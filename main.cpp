@@ -18,7 +18,7 @@ int main() {
     //test1(graph, gv);
     test2(graph, gv);
 
-    gv.createWindow(600, 600);
+    gv.createWindow(1000, 1000);
     gv.join();
 
     return 0;

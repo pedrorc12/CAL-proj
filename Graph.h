@@ -36,7 +36,7 @@ class Vertex {
     vector<Edge<T>*> adj;		// outgoing edges
 
 	bool visited;  // for path finding
-	Edge<T> *path; // for path finding
+	Vertex<T> *path; // for path finding
 	double dist;   // for path finding
     int queueIndex = 0; 		// required by MutablePriorityQueue
     int vertexIndex = 0;
@@ -46,6 +46,7 @@ class Vertex {
 
 public:
     double getDistance(Vertex<T>* vertex2);
+    double getDist() const;
 	T getInfo() const;
 	vector<Edge<T> *> getAdj() const;
     int getVertexIndex() const;
@@ -62,6 +63,11 @@ Vertex<T>::Vertex(T in, double latitude, double longitude) : info(in), latitude(
 template <class T>
 double Vertex<T>::getDistance(Vertex<T>* vertex2) {
     return sqrt(pow((latitude - vertex2->latitude), 2) + pow((longitude - vertex2->longitude), 2));
+}
+
+template<class T>
+double Vertex<T>::getDist() const{
+    return dist;
 }
 
 template <class T>
@@ -142,7 +148,8 @@ public:
     Edge<T> *addEdge(const T &source, const T &dest, double weight);
     int getNumVertex() const;
 
-    void dijkstraShortestPath(Vertex<T> *s);
+    void dijkstraShortestPath(Vertex<T> *s, Vertex<T> *d);
+    bool dijkstraFindPath(Vertex<T> *source, Vertex<T> *destination, vector<Vertex<T> *> *sol);
     void floydWarshallShortestPath();
     std::vector<Vertex<T>*> getFloydWarshallPath(Vertex<T>* vertex, Vertex<T>* end) const;
 };
@@ -194,7 +201,7 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 }
 
 template<class T>
-void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
+void Graph<T>::dijkstraShortestPath(Vertex<T> *s, Vertex<T> *d) {
 
     for (Vertex<T>* vertex : vertexSet) {
         vertex->dist = INF;
@@ -208,6 +215,10 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
 
     while(!queue.empty()) {
         Vertex<T>* vertex = queue.extractMin();
+
+        if(vertex == d){
+            break;
+        }
 
         for (Edge<T>* edge : vertex->adj) {
             Vertex<T>* vertex_dest = edge->dest;
@@ -227,6 +238,23 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s ) {
     }
 }
 
+template<class T>
+bool Graph<T>::dijkstraFindPath(Vertex<T> *source, Vertex<T> *destination, vector<Vertex<T> *> *sol){
+    vector<Vertex<T> *> res;
+    res.push_back(destination);
+    while(destination != source){
+        if(destination->path == nullptr){
+            return false;
+        }
+        destination = destination->path;
+        res.push_back(destination);
+    }
+
+    for(int i = res.size() - 1; i >= 0; i--){
+        sol->push_back(res[i]);
+    }
+    return true;
+}
 
 template<class T>
 void Graph<T>::floydWarshallShortestPath() {

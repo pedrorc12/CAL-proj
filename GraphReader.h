@@ -16,8 +16,9 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     size_t pos;
     size_t end;
 
-    nodes.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt");
+    //nodes.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt");
     //nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
+    nodes.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_lat_lon_porto.txt");
     if (!nodes.is_open()) perror("Failed to open file nodes");
     getline(nodes, info);
     while(getline(nodes, info)){
@@ -26,10 +27,10 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
         int id = std::atoi(info.substr(pos, end).c_str());
         pos = info.find_first_of(digits, end);
         end = info.find_first_of(',', pos);
-        int lati = std::atoi(info.substr(pos, end).c_str());
+        double lati = std::atof(info.substr(pos, end).c_str());
         pos = info.find_first_of(digits, end);
         end = info.find_first_of(')', pos);
-        int longi = std::atoi(info.substr(pos, end).c_str());
+        double longi = std::atof(info.substr(pos, end).c_str());
 
         //cout << "(id, latitude, longitude) " << "(" << id << ", " << lati  << ", " << longi << ")" << endl;
 
@@ -41,8 +42,9 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     }
     nodes.close();
 
-    edges.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt");
+    //edges.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt");
     //edges.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt");
+    edges.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt");
     if (!edges.is_open()) perror("Failed to open file edges");
     getline(edges, info);
     int id = 0;

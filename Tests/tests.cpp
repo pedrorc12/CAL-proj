@@ -16,7 +16,8 @@ void test1(Graph<int> &graph, GraphViewer &viewer) {
 
     cout << "Solver Created" << endl;
 
-    vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations);
+    //vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations);
+    vector<DonationSolution<int>*> solution = solver.solveProblemFloydWarshall(graph, volunteers, donations);
 
     cout << "Solution Vector size " << solution.size() << endl;
 
@@ -40,7 +41,8 @@ void test2(Graph<int> &graph, GraphViewer &viewer) {
 
     Solver<int> solver;
 
-    vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations);
+    //vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations);
+    vector<DonationSolution<int>*> solution = solver.solveProblemFloydWarshall(graph, volunteers, donations);
 
     cout << "Solution Vector size " << solution.size() << endl;
 

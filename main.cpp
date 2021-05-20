@@ -15,7 +15,7 @@ int main() {
 
     readGraph(graph, gv);
 
-    test1(graph, gv);
+    //test1(graph, gv);
     //test2(graph, gv);
 
     gv.createWindow(1000, 1000);

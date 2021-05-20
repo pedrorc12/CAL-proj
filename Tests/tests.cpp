@@ -53,3 +53,26 @@ void test2(Graph<int> &graph, GraphViewer &viewer) {
         cout << endl << endl;
     }
 }
+
+//Easy test for Porto Map
+void test3(Graph<int> &graph, GraphViewer &viewer) {
+    vector<Donation<int>*> donations;
+    donations.push_back(new Donation<int>(graph.findVertex(560409305), graph.findVertex(560409296)));
+
+    vector<Volunteer<int>*> volunteers;
+    volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(560401003)));
+
+    Solver<int> solver;
+
+    vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations);
+    //vector<DonationSolution<int>*> solution = solver.solveProblemFloydWarshall(graph, volunteers, donations);
+
+    cout << "Solution Vector size " << solution.size() << endl;
+
+
+    for (DonationSolution<int>* ds : solution) {
+        ds->printSolution();
+
+        cout << endl << endl;
+    }
+}

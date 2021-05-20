@@ -7,7 +7,7 @@
 #include "graphviewer.h"
 
 void readGraph(Graph<int> &graph, GraphViewer &gv) {
-    gv.setCenter(sf::Vector2f(300, 300));
+    gv.setCenter(sf::Vector2f(527428, 4556005));
 
     ifstream nodes;
     ifstream edges;
@@ -18,7 +18,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
 
     //nodes.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt");
     //nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
-    nodes.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_lat_lon_porto.txt");
+    nodes.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt");
     if (!nodes.is_open()) perror("Failed to open file nodes");
     getline(nodes, info);
     while(getline(nodes, info)){
@@ -38,7 +38,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
 
         GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(lati, longi));
         node.setColor(GraphViewer::BLUE);
-        node.setLabel(to_string(id));
+        //node.setLabel(to_string(id));
     }
     nodes.close();
 

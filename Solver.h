@@ -38,9 +38,10 @@ vector<DonationSolution<T>*> Solver<T>::solveProblemFloydWarshall(Graph<T> &grap
 
         int donationIndex = donation->getInitialLocation()->getVertexIndex();
         int destinationIndex = donation->getDestination()->getVertexIndex();
+        double donationDeliveryTime = graph.getShortestPathTable()[donationIndex][destinationIndex];
 
         Volunteer<T>* nearestVolunteer = nullptr;
-        double nearestVolunteerTravelTime = 0;
+        double nearestVolunteerTravelTime = INF;
 
         for (Volunteer<T>* volunteer : volunteers) {
 
@@ -48,7 +49,7 @@ vector<DonationSolution<T>*> Solver<T>::solveProblemFloydWarshall(Graph<T> &grap
             double travelTime = graph.getShortestPathTable()[volunteerIndex][donationIndex];
 
             //Checks if volunteer is able to deliver the donation in his work time
-            if (volunteer->getActualTime() + travelTime <= volunteer->getEndTime()) {
+            if (volunteer->getActualTime() + travelTime + donationDeliveryTime <= volunteer->getEndTime()) {
                 //Checks if this volunteer is quicker than the previous quicker one
                 if ((nearestVolunteer == nullptr) || (nearestVolunteerTravelTime > travelTime)) {
                     nearestVolunteer = volunteer;
@@ -59,7 +60,7 @@ vector<DonationSolution<T>*> Solver<T>::solveProblemFloydWarshall(Graph<T> &grap
 
         if (nearestVolunteer != nullptr) {
             double pickUpTime = nearestVolunteer->getActualTime() + nearestVolunteerTravelTime;
-            double deliveredTime = pickUpTime + graph.getShortestPathTable()[donationIndex][destinationIndex];
+            double deliveredTime = pickUpTime + donationDeliveryTime;
 
             DonationSolution<T>* ds = new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime);
 
@@ -84,7 +85,7 @@ vector<DonationSolution<T>*> Solver<T>::solveProblemFloydWarshall(Graph<T> &grap
 
 template<class T>
 vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, vector<Volunteer<T> *> &volunteers, vector<Donation<T> *> &donations) {
-    //Use Dijkstra for each point to calculate the distance and them calculate the path
+    //Use Dijkstra for each point to calculate the distance and then calculate the path
 
     //Start the timer
     cout << "\n Starting Dijkstra..." << endl;
@@ -94,24 +95,19 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
 
     for(Donation<T>* donation : donations){
 
-        int donationIndex = donation->getInitialLocation()->getVertexIndex();
-        int destinationIndex = donation->getDestination()->getVertexIndex();
-
         Volunteer<T>* nearestVolunteer = nullptr;
         double nearestVolunteerTravelTime = INF;
 
-        double travelTime = 0;
-        double donationDeliveryTime = 0;
-
         vector<Vertex<T> *>donationPath;
-        vector<Vertex<T> *>volunteerOptimalPath;
+        vector<Vertex<T> *>nearestVolunteerPath;
 
         //Find the path for the initial to the destination of the donation
         graph.dijkstraShortestPath(donation->getInitialLocation(), donation->getDestination());
         if(!graph.dijkstraFindPath(donation->getInitialLocation(), donation->getDestination(), &donationPath))
             continue;
 
-        donationDeliveryTime = donation->getDestination()->getDist();
+        double donationDeliveryTime = donation->getDestination()->getDist();
+        double travelTime;
 
         for(Volunteer<T>* volunteer: volunteers){
             vector<Vertex<T> *>volunteerPath;
@@ -122,10 +118,10 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
             //Dist to the donation initial location
             travelTime = donation->getInitialLocation()->getDist();
             //if found path and the travel time is better
-            if(foundPath && ( travelTime < nearestVolunteerTravelTime)){
+            if(foundPath && (travelTime < nearestVolunteerTravelTime)){
                 //if the volunteer can make the travel in time
-                if (volunteer->getActualTime() + travelTime <= volunteer->getEndTime()){
-                    volunteerOptimalPath = volunteerPath;
+                if (volunteer->getActualTime() + travelTime + donationDeliveryTime <= volunteer->getEndTime()){
+                    nearestVolunteerPath = volunteerPath;
                     nearestVolunteer = volunteer;
                     nearestVolunteerTravelTime = travelTime;
                 }
@@ -139,7 +135,7 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
             DonationSolution<T>* ds = new DonationSolution<T>(donation, nearestVolunteer, pickUpTime, deliveredTime);
 
             //Build the path
-            ds->connectPath(volunteerOptimalPath, donationPath);
+            ds->connectPath(nearestVolunteerPath, donationPath);
 
             //Update volunteer attributes
             nearestVolunteer->setActualTime(deliveredTime);

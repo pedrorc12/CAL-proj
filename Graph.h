@@ -240,17 +240,18 @@ void Graph<T>::dijkstraShortestPath(Vertex<T> *s, Vertex<T> *d) {
 
 template<class T>
 bool Graph<T>::dijkstraFindPath(Vertex<T> *source, Vertex<T> *destination, vector<Vertex<T> *> *sol){
+    if(destination->path == nullptr){
+        return false;
+    }
+
     vector<Vertex<T> *> res;
     res.push_back(destination);
-    while(destination != source){
-        if(destination->path == nullptr){
-            return false;
-        }
+    while (destination != source){
         destination = destination->path;
         res.push_back(destination);
     }
 
-    for(int i = res.size() - 1; i >= 0; i--){
+    for (int i = res.size() - 1; i >= 0; i--){
         sol->push_back(res[i]);
     }
     return true;

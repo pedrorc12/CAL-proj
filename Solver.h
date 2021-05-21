@@ -88,7 +88,7 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
     //Use Dijkstra for each point to calculate the distance and then calculate the path
 
     //Start the timer
-    cout << "\n Starting Dijkstra..." << endl;
+    cout << "\n  Starting Dijkstra..." << endl;
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     vector<DonationSolution<T>*> res;
@@ -144,6 +144,10 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
             res.push_back(ds);
         }
     }
+    cout << "Finished..." << endl;
+    std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
+    cout << "Total time elapsed = " << std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count() << "[µs]\n" << std::endl;
+
 
     return res;
 }

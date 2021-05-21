@@ -2,16 +2,14 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-#include "Graph.h"
-#include "graphviewer.h"
 
 #include "Tests/tests.h"
 
 int main() {
 
-    //test1(graph, gv);
-    //test2(graph, gv);
-    test3(graph, gv);
+    //test1();
+    //test2();
+    test3();
 
     return 0;
 }

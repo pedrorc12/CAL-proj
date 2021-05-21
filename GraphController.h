@@ -1,10 +1,13 @@
-#ifndef CAL_PROJECT_GRAPHREADER_H
-#define CAL_PROJECT_GRAPHREADER_H
+#ifndef CAL_PROJECT_GRAPHCONTROLLER_H
+#define CAL_PROJECT_GRAPHCONTROLLER_H
 
 #include <fstream>
 #include <string>
 #include "Graph.h"
 #include "graphviewer.h"
+#include "Volunteer.h"
+#include "Donation.h"
+#include "DonationSolution.h"
 
 void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edgesPath) {
 
@@ -37,7 +40,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edge
         graph.addVertex(id, x, y);
 
         GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(x, y));
-        node.setColor(GraphViewer::BLUE);
+        node.setColor(GraphViewer::YELLOW);
         //node.setLabel(to_string(id));
     }
     gv.setCenter(sf::Vector2f(x, y));
@@ -59,7 +62,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edge
 
         double distance = (graph.findVertex(source)->getDistance(graph.findVertex(dest)));
 
-        graph.addEdge(source, dest, distance);
+        graph.addEdge(id, source, dest, distance);
 
         GraphViewer::Edge &edge = gv.addEdge(id, gv.getNode(source), gv.getNode(dest), GraphViewer::Edge::EdgeType::DIRECTED);
         edge.setColor(GraphViewer::YELLOW);
@@ -68,7 +71,37 @@ void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edge
         id++;
     }
     edges.close();
-
 }
 
-#endif //CAL_PROJECT_GRAPHREADER_H
+void colorNodes(GraphViewer &gv, const vector<Volunteer<int>*> &volunteers,
+                                 const vector<Donation<int>*> &donations,
+                                 const vector<DonationSolution<int>*> &solution) {
+
+    //Color initial volunteers position with blue
+    for (Volunteer<int>* volunteer : volunteers) {
+        int id = volunteer->getInitialLocation()->getInfo();
+        gv.getNode(id).setColor(GraphViewer::BLUE);
+    }
+
+    //Color initial donations position with green and final with red;
+    for (Donation<int>* donation : donations) {
+        int idInitial = donation->getInitialLocation()->getInfo();
+        int idFinal = donation->getDestination()->getInfo();
+        gv.getNode(idInitial).setColor(GraphViewer::GREEN);
+        gv.getNode(idFinal).setColor(GraphViewer::RED);
+    }
+
+    //Color the volunteers' path with blue
+    for (DonationSolution<int>* ds : solution) {
+        for (int i = 0; i < ds->getPath().size() - 1; i++) {
+            for (Edge<int>* edge : ds->getPath()[i]->getAdj()) {
+                if (edge->getDest() == ds->getPath()[i + 1]) {
+                    gv.getEdge(edge->getId()).setColor(GraphViewer::BLUE);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+#endif //CAL_PROJECT_GRAPHCONTROLLER_H

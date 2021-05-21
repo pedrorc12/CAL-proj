@@ -108,20 +108,23 @@ void Vertex<T>::setVertexIndex(const int &index) {
 
 template <class T>
 class Edge {
+    int id;
 	Vertex<T> * orig;
 	Vertex<T> * dest;
 	double weight;
 
-	Edge(Vertex<T> *o, Vertex<T> *d, double weight);
+	Edge(int id, Vertex<T> *o, Vertex<T> *d, double weight);
 
 public:
+    int getId() { return id; }
+    Vertex<T> * getDest() { return dest; }
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double weight):
-	orig(o), dest(d), weight(weight) {}
+Edge<T>::Edge(int id, Vertex<T> *o, Vertex<T> *d, double weight):
+	id(id), orig(o), dest(d), weight(weight) {}
 
 
 
@@ -145,7 +148,7 @@ public:
 	Vertex<T>* findVertex(const T &inf) const;
 	vector<Vertex<T> *> getVertexSet() const;
     Vertex<T> *addVertex(const T &in, const double &lati, const double &longi);
-    Edge<T> *addEdge(const T &source, const T &dest, double weight);
+    Edge<T> *addEdge(const int &id, const T &source, const T &dest, double weight);
     int getNumVertex() const;
 
     void dijkstraShortestPath(Vertex<T> *s, Vertex<T> *d);
@@ -170,12 +173,12 @@ Vertex<T> * Graph<T>::addVertex(const T &in, const double &lati, const double &l
 }
 
 template <class T>
-Edge<T> * Graph<T>::addEdge(const T &source, const T &dest, double weight) {
-	auto s = findVertex(source);
+Edge<T> * Graph<T>::addEdge(const int &id, const T &source, const T &dest, double weight) {
+    auto s = findVertex(source);
 	auto d = findVertex(dest);
 	if (s == nullptr || d == nullptr)
 		return nullptr;
-	Edge<T> *e = new Edge<T>(s, d, weight);
+	Edge<T> *e = new Edge<T>(id, s, d, weight);
 	s->addEdge(e);
     needUpdate = true;
 

@@ -13,6 +13,7 @@ class DonationSolution {
     vector<Vertex<T>*> path;
 
 public:
+    vector<Vertex<T>*> getPath() { return path; }
     DonationSolution(Donation<T>* donation, Volunteer<T>* volunteer, double pickUpTime, double deliveredTime);
     void findPath(vector<vector<Vertex<T>*>> nextVertexTable);
     void connectPath(vector<Vertex<T> *> toDonation, vector<Vertex<T> *> toDelivery);

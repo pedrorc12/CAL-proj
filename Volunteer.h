@@ -9,6 +9,7 @@ class Volunteer {
     double startTime;
     double endTime;
     double actualTime;
+    Vertex<T>* initialLocation;
     Vertex<T>* actualLocation;
     static int idCounter;
 
@@ -18,6 +19,7 @@ public:
     double getStartTime() { return startTime; }
     double getEndTime() { return endTime; }
     double getActualTime() { return actualTime; }
+    Vertex<T>* getInitialLocation() { return initialLocation; }
     Vertex<T>* getActualLocation() { return actualLocation; }
 
     void setActualTime(double time) { this->actualTime = time; }
@@ -33,6 +35,7 @@ Volunteer<T>::Volunteer(double startTime, double endTime, Vertex<T> *initialLoca
     this->startTime = startTime;
     this->endTime = endTime;
     this->actualTime = startTime;
+    this->initialLocation = initialLocation;
     this->actualLocation = initialLocation;
 
     idCounter++;

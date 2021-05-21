@@ -1,5 +1,5 @@
 #include "tests.h"
-#include "../GraphReader.h"
+#include "../GraphController.h"
 
 void test1() {
 
@@ -42,6 +42,8 @@ void test1() {
 
         cout << endl << endl;
     }
+
+    colorNodes(gv, volunteers, donations, solution);
 
     gv.createWindow(1000, 1000);
     gv.join();
@@ -87,6 +89,8 @@ void test2() {
         cout << endl << endl;
     }
 
+    colorNodes(gv, volunteers, donations, solution);
+
     gv.createWindow(1000, 1000);
     gv.join();
 }
@@ -128,6 +132,8 @@ void test3() {
 
         cout << endl << endl;
     }
+
+    colorNodes(gv, volunteers, donations, solution);
 
     gv.createWindow(1000, 1000);
     gv.join();

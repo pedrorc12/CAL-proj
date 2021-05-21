@@ -15,6 +15,7 @@ public:
     int getId() { return id; }
     Vertex<T>* getInitialLocation() { return initialLocation; }
     Vertex<T>* getDestination() { return destination; }
+    void setDestination(Vertex<T>* vertex) { destination = vertex; }
 };
 
 template <class T>

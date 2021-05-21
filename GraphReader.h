@@ -6,8 +6,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 
-void readGraph(Graph<int> &graph, GraphViewer &gv) {
-    gv.setCenter(sf::Vector2f(527428, 4556005));
+void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edgesPath) {
 
     ifstream nodes;
     ifstream edges;
@@ -16,35 +15,35 @@ void readGraph(Graph<int> &graph, GraphViewer &gv) {
     size_t pos;
     size_t end;
 
-    //nodes.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt");
-    //nodes.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt");
-    nodes.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt");
+
+    nodes.open(nodesPath);
     if (!nodes.is_open()) perror("Failed to open file nodes");
     getline(nodes, info);
+    double x;
+    double y;
     while(getline(nodes, info)){
         pos = info.find_first_of(digits);
         end = info.find_first_of(',');
         int id = std::atoi(info.substr(pos, end).c_str());
         pos = info.find_first_of(digits, end);
         end = info.find_first_of(',', pos);
-        double lati = std::atof(info.substr(pos, end).c_str());
+        x = std::atof(info.substr(pos, end).c_str());
         pos = info.find_first_of(digits, end);
         end = info.find_first_of(')', pos);
-        double longi = std::atof(info.substr(pos, end).c_str());
+        y = std::atof(info.substr(pos, end).c_str());
 
-        //cout << "(id, latitude, longitude) " << "(" << id << ", " << lati  << ", " << longi << ")" << endl;
+        //cout << "(id, latitude, longitude) " << "(" << id << ", " << x  << ", " << y << ")" << endl;
 
-        graph.addVertex(id, lati, longi);
+        graph.addVertex(id, x, y);
 
-        GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(lati, longi));
+        GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(x, y));
         node.setColor(GraphViewer::BLUE);
         //node.setLabel(to_string(id));
     }
+    gv.setCenter(sf::Vector2f(x, y));
     nodes.close();
 
-    //edges.open("/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt");
-    //edges.open("/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt");
-    edges.open("/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt");
+    edges.open(edgesPath);
     if (!edges.is_open()) perror("Failed to open file edges");
     getline(edges, info);
     int id = 0;

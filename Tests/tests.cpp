@@ -1,6 +1,19 @@
 #include "tests.h"
+#include "../GraphReader.h"
 
-void test1(Graph<int> &graph, GraphViewer &viewer) {
+void test1(Graph<int> &graph, GraphViewer &gv) {
+
+    readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt",
+              "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt"
+              );
+
+    /*
+    readGraph(graph, gv,
+              "/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt",
+              "/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt"
+              );
+     */
 
     cout << "Starting the test..." << endl;
 
@@ -28,7 +41,19 @@ void test1(Graph<int> &graph, GraphViewer &viewer) {
     }
 }
 
-void test2(Graph<int> &graph, GraphViewer &viewer) {
+void test2(Graph<int> &graph, GraphViewer &gv) {
+
+    readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt",
+              "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/edges.txt"
+    );
+
+    /*
+    readGraph(graph, gv,
+              "/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/nodes.txt",
+              "/home/pedro/Projects/CAL/CAL-proj/GridGraphs/4x4/edges.txt"
+              );
+     */
 
     vector<Donation<int>*> donations;
     donations.push_back(new Donation<int>(graph.findVertex(16), graph.findVertex(24)));
@@ -55,7 +80,20 @@ void test2(Graph<int> &graph, GraphViewer &viewer) {
 }
 
 //Easy test for Porto Map
-void test3(Graph<int> &graph, GraphViewer &viewer) {
+void test3(Graph<int> &graph, GraphViewer &gv) {
+
+    readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
+    );
+
+    /*
+    readGraph(graph, gv,
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt"
+              );
+     */
+
     vector<Donation<int>*> donations;
     donations.push_back(new Donation<int>(graph.findVertex(560409305), graph.findVertex(560409296)));
 

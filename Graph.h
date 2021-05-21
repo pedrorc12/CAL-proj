@@ -31,8 +31,8 @@ template <class T> class Graph;
 template <class T>
 class Vertex {
 	T info;
-    double latitude;
-    double longitude;
+    double x;
+    double y;
     vector<Edge<T>*> adj;		// outgoing edges
 
 	bool visited;  // for path finding
@@ -41,7 +41,7 @@ class Vertex {
     int queueIndex = 0; 		// required by MutablePriorityQueue
     int vertexIndex = 0;
 
-	Vertex(T in, double latitude, double longitude);
+	Vertex(T in, double x, double y);
 	void addEdge(Edge<T> *e);
 
 public:
@@ -58,11 +58,11 @@ public:
 };
 
 template <class T>
-Vertex<T>::Vertex(T in, double latitude, double longitude) : info(in), latitude(latitude), longitude(longitude) {}
+Vertex<T>::Vertex(T in, double x, double y) : info(in), x(x), y(y) {}
 
 template <class T>
 double Vertex<T>::getDistance(Vertex<T>* vertex2) {
-    return sqrt(pow((latitude - vertex2->latitude), 2) + pow((longitude - vertex2->longitude), 2));
+    return sqrt(pow((x - vertex2->x), 2) + pow((y - vertex2->y), 2));
 }
 
 template<class T>

@@ -101,23 +101,26 @@ void test3() {
     Graph<int> graph;
     GraphViewer gv;
 
-    readGraph(graph, gv,
-              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
-              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
-    );
-
     /*
     readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt",
+              true
+    );
+    */
+
+    readGraph(graph, gv,
               "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
-              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt"
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt",
+              true
               );
-     */
+
 
     vector<Donation<int>*> donations;
-    donations.push_back(new Donation<int>(graph.findVertex(560409305), graph.findVertex(560409296)));
+    donations.push_back(new Donation<int>(graph.findVertex(122452434), graph.findVertex(1202110497)));
 
     vector<Volunteer<int>*> volunteers;
-    volunteers.push_back(new Volunteer<int>(0, 1000, graph.findVertex(560401003)));
+    volunteers.push_back(new Volunteer<int>(0, 100000, graph.findVertex(130214695)));
 
     Solver<int> solver;
 
@@ -144,20 +147,21 @@ void test4() {
 
     Graph<int> graph;
     GraphViewer gv;
-
+    /*
     readGraph(graph, gv,
               "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
               "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
     );
+    */
 
-    /*
     readGraph(graph, gv,
               "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
-              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt"
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt",
+              true
               );
-     */
 
-    Vertex<int>* vertex = graph.findVertex(560409305);
+
+    Vertex<int>* vertex = graph.findVertex(474690461);
 
     graph.colorReachableNodes(gv, vertex);
 

@@ -9,7 +9,7 @@
 #include "Donation.h"
 #include "DonationSolution.h"
 
-void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edgesPath) {
+void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edgesPath, bool bidirection = false) {
 
     ifstream nodes;
     ifstream edges;
@@ -41,7 +41,7 @@ void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edge
 
         GraphViewer::Node &node = gv.addNode(id, sf::Vector2f(x, y));
         node.setColor(GraphViewer::YELLOW);
-        //node.setLabel(to_string(id));
+        node.setLabel(to_string(id));
     }
     gv.setCenter(sf::Vector2f(x, y));
     nodes.close();
@@ -63,10 +63,20 @@ void readGraph(Graph<int> &graph, GraphViewer &gv, string nodesPath, string edge
         double distance = (graph.findVertex(source)->getDistance(graph.findVertex(dest)));
 
         graph.addEdge(id, source, dest, distance);
+        if (bidirection) {
+            graph.addEdge(id, dest, source, distance);
+        }
 
-        GraphViewer::Edge &edge = gv.addEdge(id, gv.getNode(source), gv.getNode(dest), GraphViewer::Edge::EdgeType::DIRECTED);
-        edge.setColor(GraphViewer::YELLOW);
-        edge.setWeight(distance);
+
+        if(bidirection){
+            GraphViewer::Edge &edge = gv.addEdge(id, gv.getNode(source), gv.getNode(dest), GraphViewer::Edge::EdgeType::UNDIRECTED);
+            edge.setColor(GraphViewer::YELLOW);
+            edge.setWeight(distance);
+        } else {
+            GraphViewer::Edge &edge = gv.addEdge(id, gv.getNode(source), gv.getNode(dest),GraphViewer::Edge::EdgeType::DIRECTED);
+            edge.setColor(GraphViewer::YELLOW);
+            edge.setWeight(distance);
+        }
 
         id++;
     }

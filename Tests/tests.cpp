@@ -1,7 +1,10 @@
 #include "tests.h"
 #include "../GraphReader.h"
 
-void test1(Graph<int> &graph, GraphViewer &gv) {
+void test1() {
+
+    Graph<int> graph;
+    GraphViewer gv;
 
     readGraph(graph, gv,
               "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt",
@@ -39,9 +42,15 @@ void test1(Graph<int> &graph, GraphViewer &gv) {
 
         cout << endl << endl;
     }
+
+    gv.createWindow(1000, 1000);
+    gv.join();
 }
 
-void test2(Graph<int> &graph, GraphViewer &gv) {
+void test2() {
+
+    Graph<int> graph;
+    GraphViewer gv;
 
     readGraph(graph, gv,
               "/home/victor/Documentos/CAL/Projeto/GridGraphs/4x4/nodes.txt",
@@ -77,10 +86,16 @@ void test2(Graph<int> &graph, GraphViewer &gv) {
 
         cout << endl << endl;
     }
+
+    gv.createWindow(1000, 1000);
+    gv.join();
 }
 
 //Easy test for Porto Map
-void test3(Graph<int> &graph, GraphViewer &gv) {
+void test3() {
+
+    Graph<int> graph;
+    GraphViewer gv;
 
     readGraph(graph, gv,
               "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
@@ -113,4 +128,7 @@ void test3(Graph<int> &graph, GraphViewer &gv) {
 
         cout << endl << endl;
     }
+
+    gv.createWindow(1000, 1000);
+    gv.join();
 }

@@ -11,5 +11,6 @@
 void test1();
 void test2();
 void test3();
+void test4();
 
 #endif //CAL_PROJECT_TESTS_H

@@ -13,6 +13,8 @@
 #include <iostream>
 #include <cmath>
 #include "MutablePriorityQueue.h"
+//TODO: Remover esse include mais tarde
+#include "graphviewer.h"
 
 using namespace std;
 
@@ -147,7 +149,7 @@ public:
 
 	Vertex<T>* findVertex(const T &inf) const;
 	vector<Vertex<T> *> getVertexSet() const;
-    Vertex<T> *addVertex(const T &in, const double &lati, const double &longi);
+    Vertex<T> *addVertex(const T &in, const double &x, const double &y);
     Edge<T> *addEdge(const int &id, const T &source, const T &dest, double weight);
     int getNumVertex() const;
 
@@ -155,6 +157,8 @@ public:
     bool dijkstraFindPath(Vertex<T> *source, Vertex<T> *destination, vector<Vertex<T> *> *sol);
     void floydWarshallShortestPath();
     std::vector<Vertex<T>*> getFloydWarshallPath(Vertex<T>* vertex, Vertex<T>* end) const;
+
+    void colorReachableNodes(GraphViewer &gv, Vertex<T>* vertex);
 };
 
 template <class T>
@@ -316,6 +320,32 @@ std::vector<Vertex<T>*> Graph<T>::getFloydWarshallPath(Vertex<T>* vertex, Vertex
     res.push_back(end);
 
     return res;
+}
+
+template <class T>
+void Graph<T>::colorReachableNodes(GraphViewer &gv, Vertex<T>* orig) {
+    for (Vertex<T>* vertex : vertexSet) {
+        vertex->visited = false;
+    }
+
+    std::queue<Vertex<T>*> queue;
+    queue.push(orig);
+    gv.getNode(orig->getInfo()).setColor(GraphViewer::RED);
+
+    while(!queue.empty()) {
+        Vertex<T>* vertex = queue.front();
+        queue.pop();
+
+        for (Edge<T>* edge : vertex->adj) {
+            Vertex<T>* vertex_dest = edge->dest;
+            gv.getEdge(edge->getId()).setColor(GraphViewer::BLUE);
+            if (!(vertex_dest->visited)) {
+                queue.push(vertex_dest);
+                gv.getNode(vertex_dest->getInfo()).setColor(GraphViewer::BLUE);
+            }
+        }
+        vertex->visited = true;
+    }
 }
 
 #endif

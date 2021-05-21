@@ -138,3 +138,29 @@ void test3() {
     gv.createWindow(1000, 1000);
     gv.join();
 }
+
+//Easy test for Porto Map
+void test4() {
+
+    Graph<int> graph;
+    GraphViewer gv;
+
+    readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
+    );
+
+    /*
+    readGraph(graph, gv,
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt"
+              );
+     */
+
+    Vertex<int>* vertex = graph.findVertex(560409305);
+
+    graph.colorReachableNodes(gv, vertex);
+
+    gv.createWindow(1000, 1000);
+    gv.join();
+}

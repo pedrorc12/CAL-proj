@@ -8,8 +8,8 @@
 #include "../DonationSolution.h"
 #include "../Solver.h"
 
-void test1(Graph<int> &graph, GraphViewer &viewer);
-void test2(Graph<int> &graph, GraphViewer &viewer);
-void test3(Graph<int> &graph, GraphViewer &viewer);
+void test1();
+void test2();
+void test3();
 
 #endif //CAL_PROJECT_TESTS_H

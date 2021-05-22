@@ -173,7 +173,7 @@ void test4() {
               );
 
 
-    Vertex<int>* vertex = graph.findVertex(474690461);
+    Vertex<int>* vertex = graph.findVertex(122452434);
 
     graph.colorReachableNodes(gv, vertex);
 
@@ -181,7 +181,8 @@ void test4() {
     gv.join();
 }
 /*
- * Complexity analysis increasing the number of volunteer at each iteration*/
+ * Complexity analysis increasing the number of volunteer at each iteration
+ */
 void test5(){
     Graph<int> graph;
     GraphViewer gv;
@@ -199,15 +200,29 @@ void test5(){
     );
 
     vector<Volunteer<int>*> newVolunteers;
+    //10
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(475347095)));
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(311889489)));
-    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(497871073)));
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(411831029)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(497871073)));
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(299592374)));
-    //newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(414016790)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(299586767)));
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(311886935)));
-    //newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(11506653)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(432589605)));
     newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(26122712)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(129548931)));
+    //10
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(25632425)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(137961403)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(414134101)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(415754701)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(25632366)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(311887141)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(492273248)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(428215395)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(428216715)));
+    newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(747691694)));
+
 
     vector<Donation<int>*> donations;
     donations.push_back(new Donation<int>(graph.findVertex(122452434), graph.findVertex(1202110497)));
@@ -222,6 +237,120 @@ void test5(){
         vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations, graph.findVertex(475333883));
         volunteers.push_back(newVolunteer);
     }
-
-
 }
+
+/*
+ * Complexity analysis increasing the number of donations at each iteration
+ */
+void test6() {
+    Graph<int> graph;
+    GraphViewer gv;
+    /*
+    readGraph(graph, gv,
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
+    );
+    */
+
+    readGraph(graph, gv,
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
+              "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt",
+              true
+    );
+
+    vector<Donation<int> *> newDonations;
+    //5
+    newDonations.push_back(new Donation<int>(graph.findVertex(475347095), graph.findVertex(311889489)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(411831029), graph.findVertex(497871073)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(299592374), graph.findVertex(299586767)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(311886935), graph.findVertex(432589605)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(26122712), graph.findVertex(129548931)));
+    //5
+    newDonations.push_back(new Donation<int>(graph.findVertex(25632425), graph.findVertex(137961403)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(414134101), graph.findVertex(415754701)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(25632366), graph.findVertex(311887141)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(492273248), graph.findVertex(428215395)));
+    newDonations.push_back(new Donation<int>(graph.findVertex(428216715), graph.findVertex(747691694)));
+
+
+    vector<Donation<int> *> donations;
+    donations.push_back(new Donation<int>(graph.findVertex(122452434), graph.findVertex(1202110497)));
+
+    vector<Volunteer<int> *> volunteers;
+    volunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(343646831)));
+
+    Solver<int> solver;
+
+    for (Donation<int> *newDonation : newDonations) {
+        cout << "Number of volunteers = " << donations.size() << endl;
+        vector<DonationSolution<int> *> solution = solver.solveProblemDijkstra(graph, volunteers, donations,
+                                                                               graph.findVertex(475333883));
+        donations.push_back(newDonation);
+    }
+}
+    void test7(){
+        Graph<int> graph;
+        GraphViewer gv;
+
+        //Cleaning up the file before the test
+        std::ofstream ofs;
+        ofs.open("/home/pedro/Projects/CAL/CAL-proj/timestamp.txt", std::ofstream::out | std::ofstream::trunc);
+        ofs.close();
+
+
+        /*
+        readGraph(graph, gv,
+                  "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/nodes_x_y_porto.txt",
+                  "/home/victor/Documentos/CAL/Projeto/PortugalMaps/Porto/edges_porto.txt"
+        );
+        */
+
+        readGraph(graph, gv,
+                  "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/nodes_x_y_porto.txt",
+                  "/home/pedro/Projects/CAL/CAL-proj/PortugalMaps/Porto/edges_porto.txt",
+                  true
+        );
+
+        vector<Volunteer<int>*> newVolunteers;
+        //10
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(475347095)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(311889489)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(411831029)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(497871073)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(299592374)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(299586767)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(311886935)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(432589605)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(26122712)));
+        newVolunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(129548931)));
+
+        vector<Donation<int>*> newDonations;
+        //5
+        newDonations.push_back(new Donation<int>(graph.findVertex(475347095), graph.findVertex(311889489)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(411831029), graph.findVertex(497871073)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(299592374), graph.findVertex(299586767)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(311886935), graph.findVertex(432589605)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(26122712), graph.findVertex(129548931)));
+        //5
+        newDonations.push_back(new Donation<int>(graph.findVertex(25632425), graph.findVertex(137961403)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(414134101), graph.findVertex(415754701)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(25632366), graph.findVertex(311887141)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(492273248), graph.findVertex(428215395)));
+        newDonations.push_back(new Donation<int>(graph.findVertex(428216715), graph.findVertex(747691694)));
+
+        vector<Donation<int>*> donations;
+        donations.push_back(new Donation<int>(graph.findVertex(122452434), graph.findVertex(1202110497)));
+
+        vector<Volunteer<int>*> volunteers;
+        volunteers.push_back(new Volunteer<int>(0, 20, graph.findVertex(343646831)));
+
+        Solver<int> solver;
+
+        for(int i = 0; i < newDonations.size(); i++){
+            cout << "Number of volunteers and donation = " << i << endl;
+            vector<DonationSolution<int>*> solution = solver.solveProblemDijkstra(graph, volunteers, donations, graph.findVertex(475333883));
+            volunteers.push_back(newVolunteers[i]);
+            donations.push_back(newDonations[i]);
+        }
+
+    }

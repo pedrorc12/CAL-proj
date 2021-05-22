@@ -3,6 +3,8 @@
 
 #include <chrono>
 
+#include <fstream>
+
 #include "Graph.h"
 #include "Volunteer.h"
 #include "Donation.h"
@@ -90,6 +92,9 @@ template<class T>
 vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, vector<Volunteer<T> *> &volunteers, vector<Donation<T> *> &donations, Vertex<T>* baseStore) {
     //Use Dijkstra for each point to calculate the distance and then calculate the path
 
+    std::ofstream log_file;
+    log_file.open("/home/pedro/Projects/CAL/CAL-proj/timestamp.txt", std::ios::app);
+
     //Start the timer
     cout << "\n  Starting Dijkstra..." << endl;
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
@@ -153,7 +158,9 @@ vector<DonationSolution<T> *> Solver<T>::solveProblemDijkstra(Graph<T> &graph, v
     cout << "Finished..." << endl;
     std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
     cout << "Total time elapsed = " << std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count() << "[µs]\n" << std::endl;
+    log_file << std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count() << endl;
 
+    log_file.close();
 
     return res;
 }
